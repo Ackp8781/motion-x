@@ -3,355 +3,279 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Motion X — Video editor for Windows</title>
-<meta name="description" content="Motion X is a free video editor for Windows with layers, keyframes, 92 GPU effects, masks, groups, frame-by-frame drawing and AI tools.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://api.github.com; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Motion X | Video editor for Windows</title>
+<meta name="description" content="Motion X is a free video editor for Windows with a layer timeline, keyframes with graphs, 92 GPU effects, frame-by-frame drawing and AI tools.">
 <link rel="canonical" href="https://ackp8781.github.io/motion-x/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Motion X — Edit faster. Animate everything.">
-<meta property="og:description" content="A free video editor for Windows: layer timeline, keyframes, 92 GPU effects, frame-by-frame drawing and AI tools.">
+<meta property="og:title" content="Motion X | Video editor for Windows">
+<meta property="og:description" content="Layer timeline, keyframes with graphs, 92 GPU effects, frame-by-frame drawing and AI tools. Free.">
 <meta property="og:url" content="https://ackp8781.github.io/motion-x/">
 <meta property="og:image" content="https://ackp8781.github.io/motion-x/assets/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b0b10">
+<meta name="theme-color" content="#0e0e0e">
 <link rel="icon" href="assets/icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0b0b10; --panel: #15141c; --panel2: #1c1b25; --line: #2a2836; --text: #f2f1f7; --muted: #a09cb3;
-    --cyan: #1cc8d6; --violet: #7b61ff; --pink: #ff4f8b; --orange: #ff7a1a;
-    --grad: linear-gradient(110deg, var(--cyan), var(--violet) 55%, var(--pink));
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  a { color: inherit; }
-  img { max-width: 100%; }
-  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-  code { font: 0.92em ui-monospace, Consolas, monospace; background: #ffffff10; padding: 1px 6px; border-radius: 5px; }
-
-  /* nav */
-  nav { position: sticky; top: 0; z-index: 10; background: #0b0b10cc; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #ffffff0d; }
-  nav .wrap { display: flex; align-items: center; gap: 28px; height: 64px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; text-decoration: none; letter-spacing: -0.02em; }
-  .logo img { width: 30px; height: 30px; border-radius: 8px; }
-  nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 14px; color: var(--muted); align-items: center; }
-  nav .links a { text-decoration: none; } nav .links a:hover { color: var(--text); }
-  .gh { display: inline-flex; align-items: center; gap: 6px; }
-  .gh svg { width: 18px; height: 18px; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; border: 0; border-radius: 12px; padding: 14px 24px; font: 700 16px Inter, sans-serif; text-decoration: none; cursor: pointer; transition: transform .15s, box-shadow .15s, background .15s; }
-  .btn.primary { background: var(--grad); color: #fff; box-shadow: 0 10px 40px -10px #7b61ffaa; }
-  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 16px 50px -10px #7b61ffcc; }
-  .btn.ghost { background: #ffffff0f; color: var(--text); border: 1px solid #ffffff1a; }
-  .btn.ghost:hover { background: #ffffff18; }
-  .btn.small { padding: 9px 16px; font-size: 14px; border-radius: 10px; }
-  .btn svg { width: 20px; height: 20px; }
-
-  /* hero */
-  .hero { position: relative; padding: 90px 0 40px; text-align: center; }
-  .hero::before { content: ''; position: absolute; inset: -200px 0 auto; height: 760px; z-index: -1;
-    background: radial-gradient(600px 300px at 30% 40%, #7b61ff40, transparent 70%), radial-gradient(500px 300px at 72% 30%, #1cc8d633, transparent 70%), radial-gradient(400px 260px at 55% 70%, #ff4f8b26, transparent 70%);
-    animation: drift 18s ease-in-out infinite alternate; }
-  @keyframes drift { to { transform: translateX(40px) scale(1.06); } }
-  .pill { display: inline-flex; gap: 8px; align-items: center; padding: 6px 14px; border-radius: 99px; background: #ffffff0d; border: 1px solid #ffffff14; font-size: 13px; color: var(--muted); text-decoration: none; }
-  .pill b { color: var(--cyan); font-weight: 700; }
-  h1 { font-size: clamp(44px, 8vw, 88px); line-height: 1; letter-spacing: -0.045em; margin: 22px 0 18px; font-weight: 800; }
-  .g { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 640px; margin: 0 auto 34px; }
-  .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-  .meta { margin-top: 16px; font-size: 13px; color: var(--muted); }
-  .shot { margin: 64px auto 0; max-width: 1100px; border-radius: 16px; padding: 1px; background: linear-gradient(140deg, #ffffff30, #ffffff08 40%, #7b61ff55); box-shadow: 0 40px 120px -30px #000, 0 0 90px -20px #7b61ff55; }
-  .shot img { display: block; width: 100%; height: auto; border-radius: 15px; }
-
-  /* sections */
-  section { padding: 96px 0; }
-  .eyebrow { display: block; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; }
-  h2 { font-size: clamp(30px, 4.5vw, 46px); letter-spacing: -0.035em; line-height: 1.1; margin: 0 0 14px; text-align: center; }
-  .sub { color: var(--muted); text-align: center; max-width: 640px; margin: 0 auto 50px; }
-
-  /* playground */
-  .pg { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
-  .pg-stage { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
-    background: radial-gradient(circle at 50% 45%, #22203a, #0e0d14 75%); aspect-ratio: 16 / 9; }
-  .pg-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .pg-name { position: absolute; left: 14px; bottom: 12px; font-size: 13px; font-weight: 600; background: #000a; padding: 4px 10px; border-radius: 8px; }
-  .pg-nogl { display: none; position: absolute; inset: 0; place-items: center; color: var(--muted); padding: 20px; text-align: center; }
-  #pgWrap.nogl .pg-nogl { display: grid; }
-  .pg-side { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
-  .pg-side h3 { margin: 0 0 12px; font-size: 14px; color: var(--muted); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
-  .pg-side h3 button { background: none; border: 0; color: var(--cyan); font: 600 13px Inter, sans-serif; cursor: pointer; }
-  .pgs { display: grid; grid-template-columns: 96px 1fr 40px; gap: 8px; align-items: center; font-size: 13px; color: #cfcbe0; margin-bottom: 10px; }
-  .pgs b { text-align: right; font-weight: 600; color: var(--text); font-size: 12px; }
-  .pgs input[type=range] { width: 100%; accent-color: var(--violet); }
-  .pgs select, .pgs input[type=color] { grid-column: 2 / 4; width: 100%; background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 5px; height: 32px; }
-  .pg-cats { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 10px; justify-content: center; }
-  .pgc { background: transparent; border: 1px solid var(--line); color: var(--muted); padding: 6px 13px; border-radius: 99px; font: 500 13px Inter, sans-serif; cursor: pointer; }
-  .pgc.on { background: var(--text); color: var(--bg); border-color: var(--text); }
-  .pg-fx { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; min-height: 34px; }
-  .pgf { background: var(--panel2); border: 1px solid var(--line); color: #d7d4e4; padding: 6px 12px; border-radius: 10px; font: 500 13px Inter, sans-serif; cursor: pointer; }
-  .pgf:hover { border-color: #7b61ff88; } .pgf.on { background: linear-gradient(135deg, #7b61ff, #1cc8d6); border-color: transparent; color: #fff; }
-  .pg-note { text-align: center; color: #77738a; font-size: 13px; margin-top: 18px; }
-
-  /* showcase rows */
-  .row { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; margin-bottom: 90px; }
-  .row:last-child { margin-bottom: 0; }
-  .row.flip { grid-template-columns: 1fr 1.25fr; } .row.flip .row-img { order: 2; }
-  .row-img { border-radius: 14px; padding: 1px; background: linear-gradient(140deg, #ffffff26, #ffffff06 50%, #1cc8d644); box-shadow: 0 30px 80px -30px #000; }
-  .row-img img { display: block; width: 100%; height: auto; border-radius: 13px; }
-  .row h3 { font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.03em; line-height: 1.15; margin: 8px 0 14px; }
-  .row p { color: var(--muted); margin: 0 0 16px; }
-  .row ul { margin: 0; padding: 0; list-style: none; }
-  .row li { padding: 6px 0 6px 28px; position: relative; color: #d7d4e4; font-size: 15px; }
-  .row li::before { content: ''; position: absolute; left: 0; top: 12px; width: 16px; height: 10px; border-left: 2.5px solid var(--cyan); border-bottom: 2.5px solid var(--cyan); transform: rotate(-45deg) scale(.7); }
-  .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: #7b61ff22; color: #b9a9ff; border: 1px solid #7b61ff44; }
-
-  /* features */
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px; transition: border-color .2s, transform .2s; }
-  .card:hover { border-color: #7b61ff66; transform: translateY(-3px); }
-  .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; margin-bottom: 14px; background: linear-gradient(135deg, #7b61ff33, #1cc8d622); border: 1px solid #ffffff14; }
-  .card h3 { margin: 0 0 6px; font-size: 17px; letter-spacing: -0.01em; }
-  .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 18px; margin-bottom: 70px; }
-  .stat { text-align: center; } .stat b { display: block; font-size: 48px; letter-spacing: -0.04em; line-height: 1.1; }
-  .stat span { color: var(--muted); font-size: 14px; }
-
-  /* download */
-  .dl { background: linear-gradient(160deg, #1c1830, #121119 60%); border: 1px solid #7b61ff40; border-radius: 24px; padding: 54px 40px; text-align: center; position: relative; overflow: hidden; }
-  .dl::after { content: ''; position: absolute; width: 500px; height: 500px; right: -180px; top: -260px; background: radial-gradient(#1cc8d630, transparent 70%); pointer-events: none; }
-  .dl .sub { margin-bottom: 30px; }
-  .relinfo { margin-top: 14px; font-size: 13px; color: var(--muted); }
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 44px 0 10px; text-align: left; }
-  .step { background: #ffffff08; border: 1px solid #ffffff12; border-radius: 14px; padding: 18px 20px; }
-  .step .n { width: 28px; height: 28px; border-radius: 50%; background: var(--grad); display: grid; place-items: center; font-weight: 800; font-size: 14px; margin-bottom: 10px; }
-  .step p { margin: 0; font-size: 14.5px; color: var(--muted); } .step b { color: var(--text); }
-  .req { display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: center; margin-top: 26px; font-size: 13.5px; color: var(--muted); }
-  .hash { margin-top: 18px; font: 12px ui-monospace, Consolas, monospace; color: #77738a; word-break: break-all; }
-
-  /* faq */
-  .faq { max-width: 760px; margin: 0 auto; }
-  details { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; }
-  summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: '+'; color: var(--cyan); font-size: 22px; line-height: 1; transition: transform .2s; }
-  details[open] summary::after { transform: rotate(45deg); }
-  details p { color: var(--muted); margin: 12px 0 0; font-size: 15px; }
-
-  footer { border-top: 1px solid #ffffff0d; padding: 34px 0 50px; color: #77738a; font-size: 13px; }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 30px; justify-content: space-between; }
-  footer a { color: var(--muted); }
-
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s, transform .6s; }
-  .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } .hero::before { animation: none; } }
-  @media (max-width: 900px) {
-    .pg { grid-template-columns: 1fr; }
-    .row, .row.flip { grid-template-columns: 1fr; gap: 26px; margin-bottom: 70px; } .row.flip .row-img { order: 0; }
-  }
-  @media (max-width: 700px) {
-    .wrap { padding: 0 16px; }
-    nav .links { display: none; } nav .btn { margin-left: auto; }
-    .hero { padding-top: 56px; } section { padding: 64px 0; }
-    .dl { padding: 38px 20px; } .cta .btn, .dl > .btn { width: 100%; justify-content: center; }
-    .pgs { grid-template-columns: 84px 1fr 36px; }
-  }
-</style>
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/theme.js"></script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ruler" aria-hidden="true"><i id="playhead"></i></div>
 
-<nav>
+<header class="top">
   <div class="wrap">
-    <a class="logo" href="#"><img src="assets/icon.png" alt="">Motion X</a>
-    <div class="links">
-      <a href="#try">Try effects</a><a href="#tour">Tour</a><a href="#features">Features</a><a href="#faq">FAQ</a>
-      <a class="gh" href="https://github.com/Ackp8781/motion-x" aria-label="Motion X on GitHub"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+    <a class="logo" href="#main"><img src="assets/icon.png" alt="" width="28" height="28">Motion X</a>
+    <nav class="navlinks" id="navlinks" aria-label="Main">
+      <a href="#try">Try effects</a>
+      <a href="#tour">Tour</a>
+      <a href="#features">Features</a>
+      <a href="#download">Download</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://github.com/Ackp8781/motion-x">GitHub</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="searchBtn" type="button" aria-label="Search effects and questions" title="Search (/)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="iconbtn" id="themeBtn" type="button" aria-label="Switch to light mode">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></svg>
+      </button>
+      <button class="iconbtn menubtn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="btn primary small" href="#download">Download</a>
     </div>
-    <a class="btn primary small" href="#download">Download</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <a class="pill" href="#try"><b data-rel="tag">v1.0.0</b> 92 GPU effects · AI tools · try them below ↓</a>
-    <h1>Edit faster.<br><span class="g">Animate everything.</span></h1>
-    <p class="lead">Motion X is a video editor for Windows that combines a layer timeline, keyframe animation and real-time GPU effects in one fast app.</p>
-    <div class="cta">
-      <a class="btn primary" href="https://github.com/Ackp8781/motion-x/releases/latest/download/MotionX-Windows.zip" data-rel="link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
-        Download for Windows
-      </a>
-      <a class="btn ghost" href="#try">Try the effects</a>
-    </div>
-    <div class="meta">Free · Windows 10 &amp; 11 (64-bit) · <span data-rel="size">203 MB</span> · <span data-rel="tag">v1.0.0</span></div>
-    <div class="shot reveal"><img src="assets/shot-editor.jpg" width="1600" height="900" alt="The Motion X editor: media library, player, effect settings and a layer timeline"></div>
   </div>
 </header>
 
-<section id="try">
-  <div class="wrap">
-    <span class="eyebrow reveal">Live demo</span>
-    <h2 class="reveal">Try the effects right here</h2>
-    <p class="sub reveal">These are Motion X's real GPU effects, running in your browser. Pick one and drag the sliders. In the app, every setting can also be keyframed.</p>
-    <div class="pg reveal" id="pgWrap">
-      <div class="pg-stage">
-        <canvas id="pgCanvas" width="960" height="540" aria-label="Effect preview"></canvas>
-        <div class="pg-name" id="pgName"></div>
-        <div class="pg-nogl">Your browser has WebGL turned off, so the live demo can't run here. Every effect still works in the app.</div>
-      </div>
-      <div class="pg-side">
-        <h3>Settings <button id="pgReset" type="button">Reset</button></h3>
-        <div id="pgSet"></div>
-      </div>
-    </div>
-    <div class="pg-cats" id="pgCats"></div>
-    <div class="pg-fx" id="pgFx"></div>
-    <p class="pg-note">Demo footage: <i>Big Buck Bunny</i> © Blender Foundation, CC BY 3.0.</p>
-  </div>
-</section>
-
-<section id="tour">
-  <div class="wrap">
-    <span class="eyebrow reveal">Tour</span>
-    <h2 class="reveal">Built for motion</h2>
-    <p class="sub reveal">Real screenshots from the app.</p>
-
-    <div class="row reveal">
-      <div class="row-img"><img src="assets/shot-keys.jpg" width="1600" height="900" loading="lazy" alt="Keyframed title text with the graph editor open"></div>
+<main id="main" tabindex="-1">
+  <div class="hero">
+    <div class="wrap hero-grid">
       <div>
-        <span class="tag">Animation</span>
-        <h3>Keyframes with real graphs</h3>
-        <p>Animate any property and shape the motion between keyframes with a curve, the way Alight Motion does.</p>
-        <ul>
-          <li>Position, scale, rotation, opacity, colour and every effect setting</li>
-          <li>Premade graphs, or drag your own and save them for later</li>
-          <li>Overshoot and bounce by pulling the curve past the top</li>
-        </ul>
+        <h1>The video editor for people who <em>animate</em>.</h1>
+        <p class="lead">Motion X puts a layer timeline, keyframes you shape with graphs, 92 GPU effects and a frame-by-frame drawing tool in one Windows app. It's free and needs no account.</p>
+        <div class="cta">
+          <a class="btn primary" data-rel="link" href="https://github.com/Ackp8781/motion-x/releases/latest/download/MotionX-Windows.zip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+            Download for Windows
+          </a>
+          <a class="btn line" href="#try">Try the effects in your browser</a>
+        </div>
+        <p class="facts mono">Windows 10 / 11, 64-bit · <span data-rel="size">244 MB</span> · <span data-rel="tag">v1.0.1</span></p>
       </div>
-    </div>
-
-    <div class="row flip reveal">
-      <div class="row-img"><img src="assets/shot-draw.jpg" width="1600" height="900" loading="lazy" alt="Frame-by-frame drawing editor with onion skin over video"></div>
-      <div>
-        <span class="tag">Drawing</span>
-        <h3>Frame-by-frame animation, over your video</h3>
-        <p>A FlipaClip-style drawing editor built in. Draw straight on top of your footage, frame by frame.</p>
-        <ul>
-          <li>Brush, pen, eraser, fill, line and colour picker</li>
-          <li>Onion skin shows the frames before and after</li>
-          <li>Holds, speed from 4 to 30 fps, loop or play once</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="row reveal">
-      <div class="row-img"><img src="assets/shot-enhance.jpg" width="1600" height="900" loading="lazy" alt="AI Enhance before and after comparison"></div>
-      <div>
-        <span class="tag">AI</span>
-        <h3>Rescue low-quality clips</h3>
-        <p>AI Enhance rebuilds detail in blurry, pixelated or blocky video using a neural upscaler on your graphics card. Your footage never leaves your computer.</p>
-        <ul>
-          <li>Up to 4× bigger, with a before/after slider</li>
-          <li>Smooth choppy footage up to 240 fps</li>
-          <li>Plus Stabilize, to remove handheld shake</li>
-        </ul>
-      </div>
+      <div class="frame"><img src="assets/shot-editor.jpg" width="1600" height="900" alt="Motion X editing Big Buck Bunny: effects library on the left, the player in the middle, effect settings on the right and a layer timeline below"></div>
     </div>
   </div>
-</section>
 
-<section id="features">
-  <div class="wrap">
-    <div class="stats reveal">
-      <div class="stat"><b class="g">92</b><span>GPU effects</span></div>
-      <div class="stat"><b class="g">12</b><span>effect categories</span></div>
-      <div class="stat"><b class="g">8K</b><span>max export</span></div>
-      <div class="stat"><b class="g">240</b><span>fps smooth motion</span></div>
-    </div>
-    <span class="eyebrow reveal">Everything else</span>
-    <h2 class="reveal">The whole toolbox</h2>
-    <p class="sub reveal">From quick cuts to full motion graphics.</p>
-    <div class="grid">
-      <div class="card reveal"><div class="ic">🎞️</div><h3>Layer timeline</h3><p>Stack video, pictures, text and audio on separate tracks. Trim, split, reorder and snap clips into place.</p></div>
-      <div class="card reveal"><div class="ic">🎨</div><h3>Pro colour adjust</h3><p>Exposure, contrast, highlights, shadows, temperature, HSL and one-click looks, all keyframeable.</p></div>
-      <div class="card reveal"><div class="ic">⬭</div><h3>Masks &amp; groups</h3><p>Shape masks with feathering, and groups where one clip can subtract or intersect another.</p></div>
-      <div class="card reveal"><div class="ic">↔</div><h3>Transitions &amp; speed</h3><p>Fades, slides, zooms and crossfades. Slow motion, fast forward and reverse.</p></div>
-      <div class="card reveal"><div class="ic">🔗</div><h3>Import from links</h3><p>Paste a YouTube or TikTok link to bring a video into your project, at the quality you choose.</p></div>
-      <div class="card reveal"><div class="ic">⤓</div><h3>Export in any quality</h3><p>Any aspect ratio, resolution up to 8K and frame rate. What you see in the player is what you get in the file.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="download">
-  <div class="wrap">
-    <div class="dl reveal">
-      <h2>Get Motion X</h2>
-      <p class="sub">Free for Windows. Nothing to sign up for.</p>
-      <a class="btn primary" href="https://github.com/Ackp8781/motion-x/releases/latest/download/MotionX-Windows.zip" data-rel="link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
-        Download MotionX-Windows.zip
-      </a>
-      <div class="relinfo"><span data-rel="tag">v1.0.0</span> · <span data-rel="size">203 MB</span><span data-rel="date"></span><span data-rel="count"></span> · <a href="https://github.com/Ackp8781/motion-x/releases" data-rel="notes">release notes</a></div>
-      <div class="steps">
-        <div class="step"><div class="n">1</div><p><b>Download</b> the zip.</p></div>
-        <div class="step"><div class="n">2</div><p><b>Right-click → Extract All</b>, into any folder you like.</p></div>
-        <div class="step"><div class="n">3</div><p>Open the <b>Motion X</b> folder and run <b>Motion X.exe</b>. Right-click it → <b>Send to → Desktop</b> for a shortcut.</p></div>
+  <section id="try">
+    <div class="wrap">
+      <div class="head">
+        <span class="tc mono">00:04:00</span>
+        <div>
+          <h2>Try the effects</h2>
+          <p>This runs Motion X's own effect shaders in your browser. Pick an effect, drag its settings. In the app, every one of these settings can be keyframed.</p>
+        </div>
       </div>
-      <div class="req"><span>🪟 Windows 10 or 11, 64-bit</span><span>💾 600 MB free space</span><span>🧠 8 GB RAM recommended</span><span>🎮 Vulkan graphics card for AI Enhance</span></div>
-      <div class="hash">SHA-256: 941BAA4A7C4FCFF409008F84F357C554F3018B04DCDB490A71684A53A8394514</div>
+      <div class="pg" id="pgWrap">
+        <div class="pg-stage">
+          <canvas id="pgCanvas" width="960" height="540" aria-label="Live effect preview"></canvas>
+          <div class="pg-name" id="pgName"></div>
+          <div class="pg-loading">Loading effects…</div>
+          <div class="pg-nogl">WebGL is turned off in this browser, so the demo can't run here. Every effect still works in the app.</div>
+        </div>
+        <div class="pg-side">
+          <h3>Settings <button id="pgReset" type="button">Reset</button></h3>
+          <div id="pgSet"></div>
+        </div>
+      </div>
+      <div class="pg-cats" id="pgCats" role="group" aria-label="Effect categories"></div>
+      <div class="pg-fx" id="pgFx" role="group" aria-label="Effects"></div>
+      <p class="credit">Demo footage: <i>Big Buck Bunny</i> © Blender Foundation, CC BY 3.0.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="faq" style="padding-top:20px">
-  <div class="wrap">
-    <h2 class="reveal">Questions</h2>
-    <p class="sub reveal">Short answers to the common ones.</p>
-    <div class="faq">
-      <details class="reveal"><summary>Windows says "Windows protected your PC". Is it safe?</summary>
-        <p>Windows shows this for new apps that aren't yet widely downloaded. Click <b>More info → Run anyway</b>. You can check that your download is intact by comparing its SHA-256 with the one shown above.</p></details>
-      <details class="reveal"><summary>Where are my projects saved?</summary>
-        <p>In your user folder, at <code>%APPDATA%\Motion X\Projects</code>. That means you can move or update the app folder without losing anything.</p></details>
-      <details class="reveal"><summary>Is it really free?</summary>
-        <p>Yes. No account, no watermark, no subscription.</p></details>
-      <details class="reveal"><summary>Why does AI Enhance need a graphics card?</summary>
-        <p>The neural upscaler runs on your GPU through Vulkan, which almost every NVIDIA, AMD and Intel graphics card from the last several years supports. Without one, Enhance falls back to a simpler clean-up and resize.</p></details>
-      <details class="reveal"><summary>Can I import any video from a link?</summary>
-        <p>Links from YouTube, TikTok, Instagram, X, Vimeo and many more sites work. Only import videos you made or have permission to use.</p></details>
-      <details class="reveal"><summary>How do I update or uninstall it?</summary>
-        <p>To update, download the new zip and replace the old Motion X folder. Your projects stay where they are. To uninstall, delete the folder, and <code>%APPDATA%\Motion X</code> if you also want your projects gone.</p></details>
+  <section id="tour">
+    <div class="wrap">
+      <div class="head">
+        <span class="tc mono">00:12:00</span>
+        <div>
+          <h2>A look inside</h2>
+          <p>Screenshots from the app, nothing mocked up.</p>
+        </div>
+      </div>
+      <div class="tour">
+        <div class="stop">
+          <div class="frame"><img src="assets/shot-keys.jpg" width="1600" height="900" loading="lazy" alt="A title animated with keyframes, with the graph editor open on the right"></div>
+          <div>
+            <span class="tc mono">Keyframes</span>
+            <h3>Shape every move with a graph</h3>
+            <p>Set keyframes on any property, then drag the curve between two of them to control how it eases. Pull the curve past the top for overshoot.</p>
+            <ul class="keys">
+              <li>Position, scale, rotation, opacity, colour and every effect setting</li>
+              <li>Ready-made graphs, and your own saved for reuse</li>
+            </ul>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="frame"><img src="assets/shot-draw.jpg" width="1600" height="900" loading="lazy" alt="The drawing editor with a star drawn over the video and onion skin showing the previous frame"></div>
+          <div>
+            <span class="tc mono">Drawing</span>
+            <h3>Draw on your video, frame by frame</h3>
+            <p>Open a drawing layer and sketch straight over your footage. The frame before shows faintly in red, the next in blue.</p>
+            <ul class="keys">
+              <li>Brush with pen pressure, pen, eraser, fill, line, colour picker</li>
+              <li>Hold frames, set 4 to 30 fps, loop or play once</li>
+            </ul>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="frame"><img src="assets/shot-enhance.jpg" width="1600" height="900" loading="lazy" alt="AI Enhance comparing a blurry low-resolution clip with the sharpened result"></div>
+          <div>
+            <span class="tc mono">AI Enhance</span>
+            <h3>Fix old, blurry clips</h3>
+            <p>A neural upscaler on your graphics card rebuilds detail in low-resolution or blocky video. Drag across the preview to compare before and after. Nothing is uploaded anywhere.</p>
+            <ul class="keys">
+              <li>Up to 4× the size</li>
+              <li>New in-between frames for smooth motion, up to 240 fps</li>
+              <li>Stabilize removes handheld shake</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="head">
+        <span class="tc mono">00:20:00</span>
+        <div>
+          <h2>What else is in it</h2>
+        </div>
+      </div>
+      <div class="numbers">
+        <div>92<span>GPU effects</span></div>
+        <div>12<span>effect categories</span></div>
+        <div>8K<span>largest export</span></div>
+        <div>240<span>fps smooth motion</span></div>
+      </div>
+      <div class="features">
+        <div class="feature"><h3>Layer timeline</h3><p>Video, pictures, text, drawings and audio on their own tracks. Trim, split, reorder, snap.</p></div>
+        <div class="feature"><h3>Colour adjust</h3><p>Exposure, contrast, highlights, shadows, temperature, HSL and one-click looks.</p></div>
+        <div class="feature"><h3>Masks and groups</h3><p>Shape masks with feathering. Group clips and let one subtract or intersect the others.</p></div>
+        <div class="feature"><h3>Transitions and speed</h3><p>Fades, slides, zooms and crossfades. Slow motion, fast forward and reverse.</p></div>
+        <div class="feature"><h3>Import from a link</h3><p>Paste a YouTube or TikTok link and choose the quality.</p></div>
+        <div class="feature"><h3>Export</h3><p>Any aspect ratio, frame rate and resolution up to 8K. The file matches what you saw in the player.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="wrap">
+      <div class="head">
+        <span class="tc mono">00:28:00</span>
+        <div>
+          <h2>Download</h2>
+          <p>Free for Windows. No installer, no account.</p>
+        </div>
+      </div>
+      <div class="dl">
+        <div>
+          <a class="btn primary" data-rel="link" href="https://github.com/Ackp8781/motion-x/releases/latest/download/MotionX-Windows.zip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+            Download MotionX-Windows.zip
+          </a>
+          <p class="relinfo mono"><span data-rel="tag">v1.0.1</span> · <span data-rel="size">244 MB</span><span data-rel="date"></span><span data-rel="count"></span> · <a data-rel="notes" href="https://github.com/Ackp8781/motion-x/releases">Release notes</a></p>
+          <div class="hashrow">
+            <span class="mono">SHA-256</span>
+            <code id="hash" data-rel="hash">0BE4D2AEE71E9D5404ABBEFEBD8F43818E1B9BBEAC8DEBB9AF27ACF57FE0BF05</code>
+            <button class="iconbtn" id="copyHash" type="button" aria-label="Copy the SHA-256 checksum" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            </button>
+            <span class="copied" id="copied" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+        <div>
+          <ol>
+            <li>Download the zip.</li>
+            <li>Right-click it and choose <b>Extract All</b>.</li>
+            <li>Open the <b>Motion X</b> folder and run <b>Motion X.exe</b>.</li>
+            <li>Optional: right-click Motion X.exe, <b>Send to → Desktop</b> for a shortcut.</li>
+          </ol>
+          <div class="req">
+            <div><span>System</span><span>Windows 10 or 11, 64-bit</span></div>
+            <div><span>Disk</span><span>600 MB free</span></div>
+            <div><span>Memory</span><span>8 GB recommended</span></div>
+            <div><span>AI Enhance</span><span>Graphics card with Vulkan</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="head">
+        <span class="tc mono">00:36:00</span>
+        <div><h2>Questions</h2></div>
+      </div>
+      <div class="faqtools">
+        <label class="sr" for="faqFilter">Filter questions</label>
+        <input class="field" id="faqFilter" type="search" placeholder="Filter questions" autocomplete="off">
+      </div>
+      <div id="faqList">
+        <details><summary>Windows says "Windows protected your PC". Is it safe?</summary>
+          <p>Windows shows this for new apps that aren't widely downloaded yet and aren't code-signed. Click <b>More info</b>, then <b>Run anyway</b>. To check your download wasn't changed on the way, compare its SHA-256 with the one above (in PowerShell: <code>Get-FileHash MotionX-Windows.zip</code>).</p></details>
+        <details><summary>Where are my projects saved?</summary>
+          <p>In <code>%APPDATA%\Motion X\Projects</code>. You can move or replace the app folder without losing them.</p></details>
+        <details><summary>Is it free?</summary>
+          <p>Yes. No account, no watermark, no subscription.</p></details>
+        <details><summary>Does it send my videos anywhere?</summary>
+          <p>No. Editing, effects, export and the AI tools all run on your computer. Motion X only goes online when you import a video from a link.</p></details>
+        <details><summary>Why does AI Enhance need a graphics card?</summary>
+          <p>The upscaler runs on the GPU through Vulkan, which almost every NVIDIA, AMD and Intel graphics card from recent years supports. Without one, Enhance falls back to a simpler clean-up and resize.</p></details>
+        <details><summary>Which links can I import?</summary>
+          <p>YouTube, TikTok, Instagram, X, Vimeo and many more. Only import videos you made or have permission to use.</p></details>
+        <details><summary>How do I update or uninstall it?</summary>
+          <p>To update, download the new zip and replace the old Motion X folder. Your projects stay put. To uninstall, delete the folder, and <code>%APPDATA%\Motion X</code> too if you want your projects gone.</p></details>
+        <details><summary>I found a bug or have an idea. Where do I send it?</summary>
+          <p>Open an issue on <a href="https://github.com/Ackp8781/motion-x/issues/new">GitHub</a>. Include your Windows version and what you were doing.</p></details>
+      </div>
+      <p class="nomatch" id="faqNone">No questions match.</p>
+    </div>
+  </section>
+</main>
 
 <footer>
   <div class="wrap">
-    <div><b style="color:var(--text)">Motion X</b> · <span data-rel="tag">v1.0.0</span> · <a href="https://github.com/Ackp8781/motion-x">GitHub</a> · <a href="https://github.com/Ackp8781/motion-x/releases">Releases</a></div>
-    <div>Built with Electron, FFmpeg, Real-ESRGAN and yt-dlp. Footage: <i>Big Buck Bunny</i> © Blender Foundation, CC BY 3.0.</div>
+    <div>Motion X <span data-rel="tag">v1.0.1</span> · <a href="https://github.com/Ackp8781/motion-x">GitHub</a> · <a href="https://github.com/Ackp8781/motion-x/releases">All releases</a> · Page updated <span id="updated" class="mono">29 Oct 2026</span></div>
+    <div>Uses Electron, FFmpeg, Real-ESRGAN and yt-dlp. Footage: <i>Big Buck Bunny</i> © Blender Foundation, CC BY 3.0.</div>
   </div>
 </footer>
 
+<div class="floaters">
+  <button class="totop" id="toTop" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></svg>
+  </button>
+  <a class="contact" href="https://github.com/Ackp8781/motion-x/issues/new" aria-label="Send feedback or report a bug">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z"/></svg>
+    <span>Feedback</span>
+  </a>
+</div>
+
+<dialog class="search" id="search" aria-label="Search">
+  <div class="bar">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="searchInput" type="search" placeholder="Search effects, features and questions" autocomplete="off" aria-label="Search">
+    <span class="kbd">Esc</span>
+  </div>
+  <ul id="searchResults" role="listbox"></ul>
+</dialog>
+
 <script src="assets/effects.js"></script>
 <script src="assets/playground.js"></script>
-<script>
-  // fade sections in as they scroll into view
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // Latest release from GitHub: version, size, date and download count stay current with every new release
-  fetch('https://api.github.com/repos/Ackp8781/motion-x/releases/latest').then(r => r.ok ? r.json() : null).then(rel => {
-    if (!rel) return;
-    const zip = (rel.assets || []).find(a => /\.zip$/i.test(a.name));
-    const set = (k, v) => document.querySelectorAll(`[data-rel="${k}"]`).forEach(el => { el.textContent = v; });
-    set('tag', rel.tag_name);
-    if (zip) {
-      set('size', Math.round(zip.size / 1048576) + ' MB');
-      document.querySelectorAll('[data-rel="link"]').forEach(a => { a.href = zip.browser_download_url; });
-      if (zip.download_count > 0) set('count', ' · ' + zip.download_count.toLocaleString() + ' download' + (zip.download_count === 1 ? '' : 's'));
-    }
-    if (rel.published_at) set('date', ' · released ' + new Date(rel.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }));
-    document.querySelectorAll('[data-rel="notes"]').forEach(a => { a.href = rel.html_url; });
-  }).catch(() => {});
-</script>
+<script src="assets/site.js"></script>
 </body>
 </html>

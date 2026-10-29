@@ -126,9 +126,12 @@
     const t = (performance.now() - t0) / 1000;
     const cur = (FX.DEFS[fx.type].cat === 'Wipes' && !touched.has('completion')) ? { ...fx, completion: 50 - 50 * Math.cos(t * 1.2) } : fx;
     render(cur, t);
+    if (img.complete && img.naturalWidth) document.getElementById('pgWrap').classList.add('ready');
     raf = requestAnimationFrame(frame);
   }
   function draw() { if (!raf) raf = requestAnimationFrame(frame); }
   new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) draw(); }, { rootMargin: '100px' }).observe(stage);
   renderCats(); pick('lensflare');
+  // used by the site search: jump to an effect
+  window.mxPlayground = { show(type) { if (!FX.DEFS[type]) return; cat = FX.DEFS[type].cat; renderCats(); pick(type); } };
 })();
