@@ -4,7 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Motion X — Video editor for Windows</title>
-<meta name="description" content="Motion X is a free video editor for Windows with layers, keyframes, 90+ GPU effects, masks, groups, frame-by-frame drawing and AI tools.">
+<meta name="description" content="Motion X is a free video editor for Windows with layers, keyframes, 92 GPU effects, masks, groups, frame-by-frame drawing and AI tools.">
+<link rel="canonical" href="https://ackp8781.github.io/motion-x/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Motion X — Edit faster. Animate everything.">
+<meta property="og:description" content="A free video editor for Windows: layer timeline, keyframes, 92 GPU effects, frame-by-frame drawing and AI tools.">
+<meta property="og:url" content="https://ackp8781.github.io/motion-x/">
+<meta property="og:image" content="https://ackp8781.github.io/motion-x/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0b10">
 <link rel="icon" href="assets/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,16 +27,20 @@
   html { scroll-behavior: smooth; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   a { color: inherit; }
+  img { max-width: 100%; }
   .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  code { font: 0.92em ui-monospace, Consolas, monospace; background: #ffffff10; padding: 1px 6px; border-radius: 5px; }
 
   /* nav */
-  nav { position: sticky; top: 0; z-index: 10; background: #0b0b10cc; backdrop-filter: blur(14px); border-bottom: 1px solid #ffffff0d; }
+  nav { position: sticky; top: 0; z-index: 10; background: #0b0b10cc; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #ffffff0d; }
   nav .wrap { display: flex; align-items: center; gap: 28px; height: 64px; }
   .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; text-decoration: none; letter-spacing: -0.02em; }
   .logo img { width: 30px; height: 30px; border-radius: 8px; }
-  nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 14px; color: var(--muted); }
+  nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 14px; color: var(--muted); align-items: center; }
   nav .links a { text-decoration: none; } nav .links a:hover { color: var(--text); }
-  .btn { display: inline-flex; align-items: center; gap: 10px; border: 0; border-radius: 12px; padding: 14px 24px; font: 700 16px Inter, sans-serif; text-decoration: none; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+  .gh { display: inline-flex; align-items: center; gap: 6px; }
+  .gh svg { width: 18px; height: 18px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; border: 0; border-radius: 12px; padding: 14px 24px; font: 700 16px Inter, sans-serif; text-decoration: none; cursor: pointer; transition: transform .15s, box-shadow .15s, background .15s; }
   .btn.primary { background: var(--grad); color: #fff; box-shadow: 0 10px 40px -10px #7b61ffaa; }
   .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 16px 50px -10px #7b61ffcc; }
   .btn.ghost { background: #ffffff0f; color: var(--text); border: 1px solid #ffffff1a; }
@@ -37,12 +50,14 @@
 
   /* hero */
   .hero { position: relative; padding: 90px 0 40px; text-align: center; }
-  .hero::before { content: ''; position: absolute; inset: -200px 0 auto; height: 700px; z-index: -1;
-    background: radial-gradient(600px 300px at 30% 40%, #7b61ff40, transparent 70%), radial-gradient(500px 300px at 72% 30%, #1cc8d633, transparent 70%), radial-gradient(400px 260px at 55% 70%, #ff4f8b26, transparent 70%); }
-  .pill { display: inline-flex; gap: 8px; align-items: center; padding: 6px 14px; border-radius: 99px; background: #ffffff0d; border: 1px solid #ffffff14; font-size: 13px; color: var(--muted); }
+  .hero::before { content: ''; position: absolute; inset: -200px 0 auto; height: 760px; z-index: -1;
+    background: radial-gradient(600px 300px at 30% 40%, #7b61ff40, transparent 70%), radial-gradient(500px 300px at 72% 30%, #1cc8d633, transparent 70%), radial-gradient(400px 260px at 55% 70%, #ff4f8b26, transparent 70%);
+    animation: drift 18s ease-in-out infinite alternate; }
+  @keyframes drift { to { transform: translateX(40px) scale(1.06); } }
+  .pill { display: inline-flex; gap: 8px; align-items: center; padding: 6px 14px; border-radius: 99px; background: #ffffff0d; border: 1px solid #ffffff14; font-size: 13px; color: var(--muted); text-decoration: none; }
   .pill b { color: var(--cyan); font-weight: 700; }
   h1 { font-size: clamp(44px, 8vw, 88px); line-height: 1; letter-spacing: -0.045em; margin: 22px 0 18px; font-weight: 800; }
-  h1 .g { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .g { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 640px; margin: 0 auto 34px; }
   .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .meta { margin-top: 16px; font-size: 13px; color: var(--muted); }
@@ -50,26 +65,63 @@
   .shot img { display: block; width: 100%; height: auto; border-radius: 15px; }
 
   /* sections */
-  section { padding: 90px 0; }
+  section { padding: 96px 0; }
+  .eyebrow { display: block; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; }
   h2 { font-size: clamp(30px, 4.5vw, 46px); letter-spacing: -0.035em; line-height: 1.1; margin: 0 0 14px; text-align: center; }
-  .sub { color: var(--muted); text-align: center; max-width: 620px; margin: 0 auto 50px; }
+  .sub { color: var(--muted); text-align: center; max-width: 640px; margin: 0 auto 50px; }
+
+  /* playground */
+  .pg { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  .pg-stage { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
+    background: radial-gradient(circle at 50% 45%, #22203a, #0e0d14 75%); aspect-ratio: 16 / 9; }
+  .pg-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pg-name { position: absolute; left: 14px; bottom: 12px; font-size: 13px; font-weight: 600; background: #000a; padding: 4px 10px; border-radius: 8px; }
+  .pg-nogl { display: none; position: absolute; inset: 0; place-items: center; color: var(--muted); padding: 20px; text-align: center; }
+  #pgWrap.nogl .pg-nogl { display: grid; }
+  .pg-side { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+  .pg-side h3 { margin: 0 0 12px; font-size: 14px; color: var(--muted); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+  .pg-side h3 button { background: none; border: 0; color: var(--cyan); font: 600 13px Inter, sans-serif; cursor: pointer; }
+  .pgs { display: grid; grid-template-columns: 96px 1fr 40px; gap: 8px; align-items: center; font-size: 13px; color: #cfcbe0; margin-bottom: 10px; }
+  .pgs b { text-align: right; font-weight: 600; color: var(--text); font-size: 12px; }
+  .pgs input[type=range] { width: 100%; accent-color: var(--violet); }
+  .pgs select, .pgs input[type=color] { grid-column: 2 / 4; width: 100%; background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 5px; height: 32px; }
+  .pg-cats { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 10px; justify-content: center; }
+  .pgc { background: transparent; border: 1px solid var(--line); color: var(--muted); padding: 6px 13px; border-radius: 99px; font: 500 13px Inter, sans-serif; cursor: pointer; }
+  .pgc.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .pg-fx { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; min-height: 34px; }
+  .pgf { background: var(--panel2); border: 1px solid var(--line); color: #d7d4e4; padding: 6px 12px; border-radius: 10px; font: 500 13px Inter, sans-serif; cursor: pointer; }
+  .pgf:hover { border-color: #7b61ff88; } .pgf.on { background: linear-gradient(135deg, #7b61ff, #1cc8d6); border-color: transparent; color: #fff; }
+  .pg-note { text-align: center; color: #77738a; font-size: 13px; margin-top: 18px; }
+
+  /* showcase rows */
+  .row { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; margin-bottom: 90px; }
+  .row:last-child { margin-bottom: 0; }
+  .row.flip { grid-template-columns: 1fr 1.25fr; } .row.flip .row-img { order: 2; }
+  .row-img { border-radius: 14px; padding: 1px; background: linear-gradient(140deg, #ffffff26, #ffffff06 50%, #1cc8d644); box-shadow: 0 30px 80px -30px #000; }
+  .row-img img { display: block; width: 100%; height: auto; border-radius: 13px; }
+  .row h3 { font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.03em; line-height: 1.15; margin: 8px 0 14px; }
+  .row p { color: var(--muted); margin: 0 0 16px; }
+  .row ul { margin: 0; padding: 0; list-style: none; }
+  .row li { padding: 6px 0 6px 28px; position: relative; color: #d7d4e4; font-size: 15px; }
+  .row li::before { content: ''; position: absolute; left: 0; top: 12px; width: 16px; height: 10px; border-left: 2.5px solid var(--cyan); border-bottom: 2.5px solid var(--cyan); transform: rotate(-45deg) scale(.7); }
+  .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: #7b61ff22; color: #b9a9ff; border: 1px solid #7b61ff44; }
+
+  /* features */
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
   .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px; transition: border-color .2s, transform .2s; }
   .card:hover { border-color: #7b61ff66; transform: translateY(-3px); }
   .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; margin-bottom: 14px; background: linear-gradient(135deg, #7b61ff33, #1cc8d622); border: 1px solid #ffffff14; }
   .card h3 { margin: 0 0 6px; font-size: 17px; letter-spacing: -0.01em; }
   .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 900px; margin: 0 auto; }
-  .chip { padding: 7px 13px; border-radius: 99px; background: var(--panel2); border: 1px solid var(--line); font-size: 13px; color: #d7d4e4; }
-  .chip.c1 { border-color: #1cc8d655; } .chip.c2 { border-color: #7b61ff55; } .chip.c3 { border-color: #ff4f8b55; }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 18px; margin-bottom: 40px; }
-  .stat { text-align: center; } .stat b { display: block; font-size: 44px; letter-spacing: -0.04em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 18px; margin-bottom: 70px; }
+  .stat { text-align: center; } .stat b { display: block; font-size: 48px; letter-spacing: -0.04em; line-height: 1.1; }
   .stat span { color: var(--muted); font-size: 14px; }
 
   /* download */
   .dl { background: linear-gradient(160deg, #1c1830, #121119 60%); border: 1px solid #7b61ff40; border-radius: 24px; padding: 54px 40px; text-align: center; position: relative; overflow: hidden; }
   .dl::after { content: ''; position: absolute; width: 500px; height: 500px; right: -180px; top: -260px; background: radial-gradient(#1cc8d630, transparent 70%); pointer-events: none; }
+  .dl .sub { margin-bottom: 30px; }
+  .relinfo { margin-top: 14px; font-size: 13px; color: var(--muted); }
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 44px 0 10px; text-align: left; }
   .step { background: #ffffff08; border: 1px solid #ffffff12; border-radius: 14px; padding: 18px 20px; }
   .step .n { width: 28px; height: 28px; border-radius: 50%; background: var(--grad); display: grid; place-items: center; font-weight: 800; font-size: 14px; margin-bottom: 10px; }
@@ -81,22 +133,28 @@
   .faq { max-width: 760px; margin: 0 auto; }
   details { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; }
   summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
   summary::after { content: '+'; color: var(--cyan); font-size: 22px; line-height: 1; transition: transform .2s; }
   details[open] summary::after { transform: rotate(45deg); }
   details p { color: var(--muted); margin: 12px 0 0; font-size: 15px; }
 
   footer { border-top: 1px solid #ffffff0d; padding: 34px 0 50px; color: #77738a; font-size: 13px; }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 30px; justify-content: space-between; }
+  footer a { color: var(--muted); }
 
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s, transform .6s; }
   .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } .hero::before { animation: none; } }
+  @media (max-width: 900px) {
+    .pg { grid-template-columns: 1fr; }
+    .row, .row.flip { grid-template-columns: 1fr; gap: 26px; margin-bottom: 70px; } .row.flip .row-img { order: 0; }
+  }
   @media (max-width: 700px) {
     .wrap { padding: 0 16px; }
     nav .links { display: none; } nav .btn { margin-left: auto; }
     .hero { padding-top: 56px; } section { padding: 64px 0; }
-    .dl { padding: 38px 20px; } .btn { width: 100%; justify-content: center; }
-    nav .btn { width: auto; }
+    .dl { padding: 38px 20px; } .cta .btn, .dl > .btn { width: 100%; justify-content: center; }
+    .pgs { grid-template-columns: 84px 1fr 36px; }
   }
 </style>
 </head>
@@ -105,77 +163,121 @@
 <nav>
   <div class="wrap">
     <a class="logo" href="#"><img src="assets/icon.png" alt="">Motion X</a>
-    <div class="links"><a href="#features">Features</a><a href="#effects">Effects</a><a href="#ai">AI tools</a><a href="#faq">FAQ</a></div>
+    <div class="links">
+      <a href="#try">Try effects</a><a href="#tour">Tour</a><a href="#features">Features</a><a href="#faq">FAQ</a>
+      <a class="gh" href="https://github.com/Ackp8781/motion-x" aria-label="Motion X on GitHub"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+    </div>
     <a class="btn primary small" href="#download">Download</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <span class="pill"><b>New</b> Version 1.0 · 92 GPU effects · AI tools</span>
+    <a class="pill" href="#try"><b data-rel="tag">v1.0.0</b> 92 GPU effects · AI tools · try them below ↓</a>
     <h1>Edit faster.<br><span class="g">Animate everything.</span></h1>
     <p class="lead">Motion X is a video editor for Windows that combines a layer timeline, keyframe animation and real-time GPU effects in one fast app.</p>
     <div class="cta">
-      <a class="btn primary" href="https://github.com/Ackp8781/motion-x/releases/latest/download/MotionX-Windows.zip" download>
+      <a class="btn primary" href="https://github.com/Ackp8781/motion-x/releases/latest/download/MotionX-Windows.zip" data-rel="link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
         Download for Windows
       </a>
-      <a class="btn ghost" href="#features">See what it can do</a>
+      <a class="btn ghost" href="#try">Try the effects</a>
     </div>
-    <div class="meta">Free · Windows 10 &amp; 11 (64-bit) · 203 MB · v1.0.0</div>
-    <div class="shot reveal"><img src="assets/screenshot.png" width="1600" height="900" alt="The Motion X editor: media library, player, effect settings and a layer timeline"></div>
+    <div class="meta">Free · Windows 10 &amp; 11 (64-bit) · <span data-rel="size">203 MB</span> · <span data-rel="tag">v1.0.0</span></div>
+    <div class="shot reveal"><img src="assets/shot-editor.jpg" width="1600" height="900" alt="The Motion X editor: media library, player, effect settings and a layer timeline"></div>
   </div>
 </header>
 
+<section id="try">
+  <div class="wrap">
+    <span class="eyebrow reveal">Live demo</span>
+    <h2 class="reveal">Try the effects right here</h2>
+    <p class="sub reveal">These are Motion X's real GPU effects, running in your browser. Pick one and drag the sliders. In the app, every setting can also be keyframed.</p>
+    <div class="pg reveal" id="pgWrap">
+      <div class="pg-stage">
+        <canvas id="pgCanvas" width="960" height="540" aria-label="Effect preview"></canvas>
+        <div class="pg-name" id="pgName"></div>
+        <div class="pg-nogl">Your browser has WebGL turned off, so the live demo can't run here. Every effect still works in the app.</div>
+      </div>
+      <div class="pg-side">
+        <h3>Settings <button id="pgReset" type="button">Reset</button></h3>
+        <div id="pgSet"></div>
+      </div>
+    </div>
+    <div class="pg-cats" id="pgCats"></div>
+    <div class="pg-fx" id="pgFx"></div>
+    <p class="pg-note">Demo footage: <i>Big Buck Bunny</i> © Blender Foundation, CC BY 3.0.</p>
+  </div>
+</section>
+
+<section id="tour">
+  <div class="wrap">
+    <span class="eyebrow reveal">Tour</span>
+    <h2 class="reveal">Built for motion</h2>
+    <p class="sub reveal">Real screenshots from the app.</p>
+
+    <div class="row reveal">
+      <div class="row-img"><img src="assets/shot-keys.jpg" width="1600" height="900" loading="lazy" alt="Keyframed title text with the graph editor open"></div>
+      <div>
+        <span class="tag">Animation</span>
+        <h3>Keyframes with real graphs</h3>
+        <p>Animate any property and shape the motion between keyframes with a curve, the way Alight Motion does.</p>
+        <ul>
+          <li>Position, scale, rotation, opacity, colour and every effect setting</li>
+          <li>Premade graphs, or drag your own and save them for later</li>
+          <li>Overshoot and bounce by pulling the curve past the top</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row flip reveal">
+      <div class="row-img"><img src="assets/shot-draw.jpg" width="1600" height="900" loading="lazy" alt="Frame-by-frame drawing editor with onion skin over video"></div>
+      <div>
+        <span class="tag">Drawing</span>
+        <h3>Frame-by-frame animation, over your video</h3>
+        <p>A FlipaClip-style drawing editor built in. Draw straight on top of your footage, frame by frame.</p>
+        <ul>
+          <li>Brush, pen, eraser, fill, line and colour picker</li>
+          <li>Onion skin shows the frames before and after</li>
+          <li>Holds, speed from 4 to 30 fps, loop or play once</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row reveal">
+      <div class="row-img"><img src="assets/shot-enhance.jpg" width="1600" height="900" loading="lazy" alt="AI Enhance before and after comparison"></div>
+      <div>
+        <span class="tag">AI</span>
+        <h3>Rescue low-quality clips</h3>
+        <p>AI Enhance rebuilds detail in blurry, pixelated or blocky video using a neural upscaler on your graphics card. Your footage never leaves your computer.</p>
+        <ul>
+          <li>Up to 4× bigger, with a before/after slider</li>
+          <li>Smooth choppy footage up to 240 fps</li>
+          <li>Plus Stabilize, to remove handheld shake</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="features">
   <div class="wrap">
-    <h2 class="reveal">Everything you need to make it move</h2>
-    <p class="sub reveal">From quick cuts to full motion graphics, Motion X keeps every tool one click away.</p>
+    <div class="stats reveal">
+      <div class="stat"><b class="g">92</b><span>GPU effects</span></div>
+      <div class="stat"><b class="g">12</b><span>effect categories</span></div>
+      <div class="stat"><b class="g">8K</b><span>max export</span></div>
+      <div class="stat"><b class="g">240</b><span>fps smooth motion</span></div>
+    </div>
+    <span class="eyebrow reveal">Everything else</span>
+    <h2 class="reveal">The whole toolbox</h2>
+    <p class="sub reveal">From quick cuts to full motion graphics.</p>
     <div class="grid">
-      <div class="card reveal"><div class="ic">🎞️</div><h3>Layer timeline</h3><p>Stack videos, pictures, text and audio on separate tracks. Trim, split, reorder and snap clips into place.</p></div>
-      <div class="card reveal"><div class="ic">◆</div><h3>Keyframes &amp; graphs</h3><p>Animate position, scale, rotation, opacity, colour and every effect setting. Shape motion with ready-made or custom graphs.</p></div>
-      <div class="card reveal"><div class="ic">✨</div><h3>92 GPU effects</h3><p>Glows, blurs, glitches, particles, 3D and wipes run live on your graphics card, and every card in the library shows a moving preview.</p></div>
+      <div class="card reveal"><div class="ic">🎞️</div><h3>Layer timeline</h3><p>Stack video, pictures, text and audio on separate tracks. Trim, split, reorder and snap clips into place.</p></div>
       <div class="card reveal"><div class="ic">🎨</div><h3>Pro colour adjust</h3><p>Exposure, contrast, highlights, shadows, temperature, HSL and one-click looks, all keyframeable.</p></div>
-      <div class="card reveal"><div class="ic">⬭</div><h3>Masks &amp; groups</h3><p>Shape masks with feathering, and Alight Motion-style groups that let one clip subtract or intersect another.</p></div>
-      <div class="card reveal"><div class="ic">✎</div><h3>Frame-by-frame drawing</h3><p>Draw animations right on top of your video with onion skins, brushes, fill and per-frame holds.</p></div>
-      <div class="card reveal"><div class="ic">↔</div><h3>Transitions &amp; speed</h3><p>Fades, slides, zooms and crossfades. Slow motion, fast forward and reverse playback.</p></div>
+      <div class="card reveal"><div class="ic">⬭</div><h3>Masks &amp; groups</h3><p>Shape masks with feathering, and groups where one clip can subtract or intersect another.</p></div>
+      <div class="card reveal"><div class="ic">↔</div><h3>Transitions &amp; speed</h3><p>Fades, slides, zooms and crossfades. Slow motion, fast forward and reverse.</p></div>
       <div class="card reveal"><div class="ic">🔗</div><h3>Import from links</h3><p>Paste a YouTube or TikTok link to bring a video into your project, at the quality you choose.</p></div>
       <div class="card reveal"><div class="ic">⤓</div><h3>Export in any quality</h3><p>Any aspect ratio, resolution up to 8K and frame rate. What you see in the player is what you get in the file.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="effects" style="padding-top:20px">
-  <div class="wrap">
-    <div class="stats reveal">
-      <div class="stat"><b>92</b><span>effects</span></div>
-      <div class="stat"><b>12</b><span>effect categories</span></div>
-      <div class="stat"><b>8K</b><span>max export</span></div>
-      <div class="stat"><b>240</b><span>fps smooth motion</span></div>
-    </div>
-    <h2 class="reveal">Effects inspired by the best</h2>
-    <p class="sub reveal">Effects you know from After Effects, Alight Motion and CapCut, ready to drop on any clip.</p>
-    <div class="chips reveal">
-      <span class="chip c1">Bloom</span><span class="chip c2">Lens Flare</span><span class="chip c3">Light Leak</span><span class="chip">Lens Blur</span>
-      <span class="chip c1">Neon Edges</span><span class="chip c2">Glitch</span><span class="chip c3">VHS</span><span class="chip">RGB Split</span>
-      <span class="chip c1">Snow</span><span class="chip c2">Rain</span><span class="chip c3">Sparkles</span><span class="chip">Floating Hearts</span>
-      <span class="chip c1">3D Rotate</span><span class="chip c2">3D Extrude</span><span class="chip c3">Cylinder Wrap</span><span class="chip">Bevel Edges</span>
-      <span class="chip c1">Kaleidoscope</span><span class="chip c2">Swirl</span><span class="chip c3">Polar Coordinates</span><span class="chip">Split Screen</span>
-      <span class="chip c1">Shake</span><span class="chip c2">Zoom Punch</span><span class="chip c3">Spin</span><span class="chip">Strobe</span>
-      <span class="chip c1">Linear Wipe</span><span class="chip c2">Iris Wipe</span><span class="chip c3">Venetian Blinds</span><span class="chip">Chroma Key</span>
-      <span class="chip c1">Cartoon</span><span class="chip c2">Oil Paint</span><span class="chip c3">Old TV</span><span class="chip">Halftone</span>
-      <span class="chip">…and 56 more</span>
-    </div>
-  </div>
-</section>
-
-<section id="ai">
-  <div class="wrap">
-    <h2 class="reveal">AI tools built in</h2>
-    <p class="sub reveal">They run on your own computer, so your footage never leaves it.</p>
-    <div class="grid">
-      <div class="card reveal"><div class="ic">✦</div><h3>AI Enhance</h3><p>Fix blurry, pixelated and blocky footage with neural upscaling up to 4×, and turn choppy low-fps video smooth up to 240 fps.</p></div>
-      <div class="card reveal"><div class="ic">🎥</div><h3>Stabilize</h3><p>Remove handheld shake, from a light touch to a locked tripod look, with a before/after preview.</p></div>
     </div>
   </div>
 </section>
@@ -184,13 +286,14 @@
   <div class="wrap">
     <div class="dl reveal">
       <h2>Get Motion X</h2>
-      <p class="sub" style="margin-bottom:30px">Free for Windows. Nothing to sign up for.</p>
-      <a class="btn primary" href="https://github.com/Ackp8781/motion-x/releases/latest/download/MotionX-Windows.zip" download>
+      <p class="sub">Free for Windows. Nothing to sign up for.</p>
+      <a class="btn primary" href="https://github.com/Ackp8781/motion-x/releases/latest/download/MotionX-Windows.zip" data-rel="link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
         Download MotionX-Windows.zip
       </a>
+      <div class="relinfo"><span data-rel="tag">v1.0.0</span> · <span data-rel="size">203 MB</span><span data-rel="date"></span><span data-rel="count"></span> · <a href="https://github.com/Ackp8781/motion-x/releases" data-rel="notes">release notes</a></div>
       <div class="steps">
-        <div class="step"><div class="n">1</div><p><b>Download</b> the zip (203 MB).</p></div>
+        <div class="step"><div class="n">1</div><p><b>Download</b> the zip.</p></div>
         <div class="step"><div class="n">2</div><p><b>Right-click → Extract All</b>, into any folder you like.</p></div>
         <div class="step"><div class="n">3</div><p>Open the <b>Motion X</b> folder and run <b>Motion X.exe</b>. Right-click it → <b>Send to → Desktop</b> for a shortcut.</p></div>
       </div>
@@ -215,23 +318,40 @@
         <p>The neural upscaler runs on your GPU through Vulkan, which almost every NVIDIA, AMD and Intel graphics card from the last several years supports. Without one, Enhance falls back to a simpler clean-up and resize.</p></details>
       <details class="reveal"><summary>Can I import any video from a link?</summary>
         <p>Links from YouTube, TikTok, Instagram, X, Vimeo and many more sites work. Only import videos you made or have permission to use.</p></details>
-      <details class="reveal"><summary>How do I uninstall it?</summary>
-        <p>Delete the Motion X folder. To remove your projects too, delete <code>%APPDATA%\Motion X</code>.</p></details>
+      <details class="reveal"><summary>How do I update or uninstall it?</summary>
+        <p>To update, download the new zip and replace the old Motion X folder. Your projects stay where they are. To uninstall, delete the folder, and <code>%APPDATA%\Motion X</code> if you also want your projects gone.</p></details>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div><b style="color:var(--text)">Motion X</b> · v1.0.0</div>
-    <div>Built with Electron, FFmpeg, Real-ESRGAN and yt-dlp. Screenshot footage: <i>Big Buck Bunny</i> © Blender Foundation, CC BY 3.0.</div>
+    <div><b style="color:var(--text)">Motion X</b> · <span data-rel="tag">v1.0.0</span> · <a href="https://github.com/Ackp8781/motion-x">GitHub</a> · <a href="https://github.com/Ackp8781/motion-x/releases">Releases</a></div>
+    <div>Built with Electron, FFmpeg, Real-ESRGAN and yt-dlp. Footage: <i>Big Buck Bunny</i> © Blender Foundation, CC BY 3.0.</div>
   </div>
 </footer>
 
+<script src="assets/effects.js"></script>
+<script src="assets/playground.js"></script>
 <script>
   // fade sections in as they scroll into view
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Latest release from GitHub: version, size, date and download count stay current with every new release
+  fetch('https://api.github.com/repos/Ackp8781/motion-x/releases/latest').then(r => r.ok ? r.json() : null).then(rel => {
+    if (!rel) return;
+    const zip = (rel.assets || []).find(a => /\.zip$/i.test(a.name));
+    const set = (k, v) => document.querySelectorAll(`[data-rel="${k}"]`).forEach(el => { el.textContent = v; });
+    set('tag', rel.tag_name);
+    if (zip) {
+      set('size', Math.round(zip.size / 1048576) + ' MB');
+      document.querySelectorAll('[data-rel="link"]').forEach(a => { a.href = zip.browser_download_url; });
+      if (zip.download_count > 0) set('count', ' · ' + zip.download_count.toLocaleString() + ' download' + (zip.download_count === 1 ? '' : 's'));
+    }
+    if (rel.published_at) set('date', ' · released ' + new Date(rel.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }));
+    document.querySelectorAll('[data-rel="notes"]').forEach(a => { a.href = rel.html_url; });
+  }).catch(() => {});
 </script>
 </body>
 </html>
